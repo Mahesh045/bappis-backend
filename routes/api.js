@@ -1,6 +1,8 @@
 var express = require("express");
 var router = express.Router();
 var fs = require("fs");
+const { response } = require("../app");
+const Users = require('../Models/users');
 
 /* List of API */
 router.get("/", function (req, res, next) {
@@ -27,55 +29,95 @@ router.get("/", function (req, res, next) {
         description: "User Search",
         method: "get",
       },
+      {
+        name: `${req.headers.host}/api/prediction`,
+        description: "User prediction for current match",
+        method: "post",
+      },
     ],
   });
 });
 
+
 /* All User Listing */
 router.get("/user", function (req, res, next) {
-  const users = require("../users");
-  res.send({ status: "success", data: users, msg: "" });
+  /*const users = require("../users");
+  res.send({ status: "success", data: users, msg: "" });*/
+  Users.find({})
+  .then((user) => {
+    res.setHeader('Content-Type','application/json');
+    res.statusCode = 200;
+    res.json(user);
+  }, (err) => next(err))
+  .catch((err) => next(err));
+});
+
+router.get("/user/:id", function (req, res, next) {
+  Users.findById(req.params.id)
+  .then((user) => {
+    res.setHeader('Content-Type','application/json');
+    res.statusCode = 200;
+    res.json(user);
+  }, (err) => next(err))
+  .catch((err) => next(err));
 });
 
 /* New User Register */
 router.post("/user/register", function (req, res, next) {
-  console.log("req.body -> ", req.body);
-  const users = require("../users");
-  let newUsers = users.filter(function (e) {
-    return e.email == req.body.email;
-  });
-  if (newUsers.length > 0) {
-    res.send({ status: "failed", data: {}, msg: "User Already Exists" });
-  } else {
-    users.push(req.body);
-    fs.writeFile("./users.json", JSON.stringify(users), (err) => {
-      // Checking for errors
-      if (err)
-        res.send({
-          status: "failed",
-          data: {},
-          msg: `Something went wrong ${err}`,
-        });
-      res.send({ status: "success", data: req.body, msg: "" });
-    });
-  }
+  Users.create(req.body)
+  .then((user) => {
+    console.log('User Created',user)
+    res.send({statusCode : 200, data : user});
+  }, (err) => next(err))
+  .catch((err) => next(err));
 });
 
 /* User Authentication */
 router.post("/user/login", function (req, res, next) {
-  console.log("req.body -> ", req.body);
-  const users = require("../users");
-  let newUsers = users.filter(function (e) {
-    return e.email == req.body.email && e.password == req.body.password;
+  console.log(req.body.email);
+  console.log(req.body.password);
+  Users.find({email: req.body.email, password: req.body.password})
+  .then((user) => {
+    console.log(user);
+    res.send({statusCode : 200, data : user});
+  })
+  .catch((error) => {
+    //Hide Loader
+    console.error(error);
   });
-  if (newUsers.length > 0) {
-    res.send({ status: "success", data: newUsers[0], msg: "" });
-  } else {
-    res.send({ status: "failed", data: {}, msg: "No UserId / Password Found" });
-  }
 });
 
-/* User Search */
+router.post("/user/prediction/:id", function (req, res, next) {
+  console.log(req.params.id);
+  console.log(req.body);
+  Users.findById(req.params.id)
+  .then((user) => {
+    if(user != null)
+    {
+      console.log(user);
+      user.predictions.push(req.body);
+      user.save()
+      .then((user) => {
+        res.setHeader('Content-Type','application/json');
+        res.statusCode = 200;
+        res.json(user);
+        /*res.send({statusCode : 200, data : user});*/
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+    }
+    else
+    {
+      console.log("Mila nahi user");
+    }
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+});
+
+/* User predction */
 router.get("/user/search", function (req, res, next) {
   console.log("req.body -> ", req.query);
   const users = require("../users");
