@@ -168,7 +168,7 @@ function updateDbWithResult()
   });
 }
 
-//var interval = setInterval(updateDbWithResult,time);
+var interval = setInterval(updateDbWithResult,time);
 
 // error handler
 app.use(function (err, req, res, next) {
