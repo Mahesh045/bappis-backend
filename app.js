@@ -97,7 +97,7 @@ function updateDbWithResult()
   })
   .then((response) => response.json())
   .then(responseJ => {
-    if(responseJ.match.status ==  'COMPLETED')
+    if(responseJ.status != "no results" && responseJ.match.status ==  'COMPLETED')
     {
       matchComplete = 1;
       winner = responseJ.match.winningTeamId;
