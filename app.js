@@ -70,7 +70,7 @@ fetch("https://dev132-cricket-live-scores-v1.p.rapidapi.com/matchseries.php?seri
     console.error(err);
 });
 
-var curr_match_id = 50827;
+var curr_match_id = 50829;
 var curr_series_id = 2780;
 var time = 15*60*1000;
 
@@ -117,12 +117,12 @@ function updateDbWithResult()
             motm = responseJson.fullScorecardAwards.manOfTheMatchName;
             mostRuns = responseJson.fullScorecardAwards.mostRunsAward.name;
             mostWickets = responseJson.fullScorecardAwards.mostWicketsAward.name;
-            if(responseJson.fullScorecard.innings.length == 4)
+            if(responseJson.fullScorecard.innings.length > 2)
             {
-              score_a = responseJson.fullScorecard.innings[3].run;
-              team_a = responseJson.fullScorecard.innings[3].team.id;
-              score_b = responseJson.fullScorecard.innings[2].run;
-              team_b = responseJson.fullScorecard.innings[2].team.id;
+              score_a = responseJson.fullScorecard.innings[responseJson.fullScorecard.innings.length-1].run;
+              team_a = responseJson.fullScorecard.innings[responseJson.fullScorecard.innings.length-1].team.id;
+              score_b = responseJson.fullScorecard.innings[responseJson.fullScorecard.innings.length-2].run;
+              team_b = responseJson.fullScorecard.innings[responseJson.fullScorecard.innings.length-2].team.id;
               tied = 1;
             }
             else if(responseJson.fullScorecard.innings.length == 2)
@@ -133,6 +133,7 @@ function updateDbWithResult()
           }
           else
           {
+            console.log("Match not Complete Yet");
             matchComplete = 0;
           }
         })
@@ -148,10 +149,12 @@ function updateDbWithResult()
                 }
                 calculate_score.calculate_score(curr_match_id,motm,mostRuns,mostWickets,score_a,score_b,team_a,team_b,all_users,tied,winner);
               })
+              .then(response => {
+                curr_match_id++;
+              })
               .catch(err => {
                 console.error(err);
               });
-              curr_match_id++;
           }
           else
           {

@@ -12,6 +12,7 @@ function calculate_score(matchID,motm,mostRuns,mostWicekts,score_a,score_b,team_
             {
               if(user.predictions[j].matchID == matchID)
               {
+                console.log(matchID);
                 if(user.predictions[j].p_id_a != team_a)
                 {
                   var temp = score_a;
@@ -143,7 +144,6 @@ function calculate_score(matchID,motm,mostRuns,mostWicekts,score_a,score_b,team_
                   score = 0;
                 }
 
-                console.log(user.predictions[j]);
                 user.totalScore += score;
                 user.predictions[j].a_winner = winner;
                 user.predictions[j].a_tied = tied;
@@ -156,6 +156,7 @@ function calculate_score(matchID,motm,mostRuns,mostWicekts,score_a,score_b,team_
                 console.log(user);
                 user.save()
                 .then((user) => {
+                  console.log(user.predictions[j]);
                   console.log("Successfully updated db");
                 })
                 .catch(err => {
