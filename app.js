@@ -70,7 +70,7 @@ fetch("https://dev132-cricket-live-scores-v1.p.rapidapi.com/matchseries.php?seri
     console.error(err);
 });
 
-var curr_match_id = 50829;
+var curr_match_id = 50830;
 var curr_series_id = 2780;
 var time = 15*60*1000;
 
@@ -99,6 +99,8 @@ function updateDbWithResult()
   .then(responseJ => {
     if(responseJ.status != "no results" && responseJ.match.status ==  'COMPLETED')
     {
+      team_a = responseJ.match.homeTeam.id;
+      team_b = responseJ.match.awayTeam.id;
       matchComplete = 1;
       winner = responseJ.match.winningTeamId;
       console.log(winner);
@@ -117,18 +119,13 @@ function updateDbWithResult()
             motm = responseJson.fullScorecardAwards.manOfTheMatchName;
             mostRuns = responseJson.fullScorecardAwards.mostRunsAward.name;
             mostWickets = responseJson.fullScorecardAwards.mostWicketsAward.name;
-            if(responseJson.fullScorecard.innings.length > 2)
+            score_a = responseJson.fullScorecard.innings[responseJson.fullScorecard.innings.length-2].run;
+            score_b = responseJson.fullScorecard.innings[responseJson.fullScorecard.innings.length-1].run;
+            if(team_a != responseJson.fullScorecard.innings[responseJson.fullScorecard.innings.length-2].team.id)
             {
-              score_a = responseJson.fullScorecard.innings[responseJson.fullScorecard.innings.length-1].run;
-              team_a = responseJson.fullScorecard.innings[responseJson.fullScorecard.innings.length-1].team.id;
-              score_b = responseJson.fullScorecard.innings[responseJson.fullScorecard.innings.length-2].run;
-              team_b = responseJson.fullScorecard.innings[responseJson.fullScorecard.innings.length-2].team.id;
-              tied = 1;
-            }
-            else if(responseJson.fullScorecard.innings.length == 2)
-            {
-              score_a = responseJson.fullScorecard.innings[0].run;
-              score_b = responseJson.fullScorecard.innings[1].run;
+              var temp = score_a;
+              score_a = score_b;
+              score_b = temp;
             }
           }
           else
@@ -147,7 +144,7 @@ function updateDbWithResult()
                   let x = user[i]
                   all_users.push(x);
                 }
-                calculate_score.calculate_score(curr_match_id,motm,mostRuns,mostWickets,score_a,score_b,team_a,team_b,all_users,tied,winner);
+                calculate_score.calculate_score(curr_match_id,motm,mostRuns,mostWickets,score_a,score_b,all_users,tied,winner);
               })
               .then(response => {
                 curr_match_id++;

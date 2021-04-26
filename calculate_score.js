@@ -1,6 +1,6 @@
 const Users = require('./Models/users');
 
-function calculate_score(matchID,motm,mostRuns,mostWicekts,score_a,score_b,team_a,team_b,all_users,tied,winner)
+function calculate_score(matchID,motm,mostRuns,mostWicekts,score_a,score_b,all_users,tied,winner)
 {
     for(var i in all_users)
       {
@@ -13,15 +13,6 @@ function calculate_score(matchID,motm,mostRuns,mostWicekts,score_a,score_b,team_
               if(user.predictions[j].matchID == matchID)
               {
                 console.log(matchID);
-                if(user.predictions[j].p_id_a != team_a)
-                {
-                  var temp = score_a;
-                  score_a = score_b;
-                  score_b = temp;
-                  temp = team_a;
-                  team_a = team_b;
-                  team_b = temp;
-                }
                 var score = 0;
                 if((tied == 0 && user.predictions[j].p_tied == 0) && (user.predictions[j].p_winner == winner))
                 {
