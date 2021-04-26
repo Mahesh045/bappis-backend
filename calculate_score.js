@@ -10,7 +10,7 @@ function calculate_score(matchID,motm,mostRuns,mostWicekts,score_a,score_b,team_
           {
             for(var j in user.predictions)
             {
-              if(user.predictions[j].matchID = matchID)
+              if(user.predictions[j].matchID == matchID)
               {
                 if(user.predictions[j].p_id_a != team_a)
                 {
