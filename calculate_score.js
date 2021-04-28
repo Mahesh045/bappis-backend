@@ -36,97 +36,97 @@ function calculate_score(matchID,motm,mostRuns,mostWicekts,score_a,score_b,all_u
                   score -= 3;
                 }
 
-                if(user.predictions[j].p_motm.toLowerCase() == motm.toLowerCase())
+                if(user.predictions[j].p_motm != '' && user.predictions[j].p_motm.toLowerCase() == motm.toLowerCase())
                 {
                   score += 5;
                 }
-                if(user.predictions[j].p_runs.toLowerCase() == mostRuns.toLowerCase())
+                if(user.predictions[j].p_runs != '' && user.predictions[j].p_runs.toLowerCase() == mostRuns.toLowerCase())
                 {
                   score += 4;
                 }
-                if(user.predictions[j].p_wickets.toLowerCase() == mostWicekts.toLowerCase())
+                if(user.predictions[j].p_wickets != '' && user.predictions[j].p_wickets.toLowerCase() == mostWicekts.toLowerCase())
                 {
                   score += 4;
                 }
 
-                if(user.predictions[j].p_score_a == "A" && score_a <= 100 && score_a > 0)
+                if(user.predictions[j].p_score_a != '' && user.predictions[j].p_score_a == "A" && score_a <= 100 && score_a > 0)
                 {
                   score += 3;
                 }
-                else if(user.predictions[j].p_score_a == "B" && score_a <= 120 && score_a > 100)
+                else if(user.predictions[j].p_score_a != '' && user.predictions[j].p_score_a == "B" && score_a <= 120 && score_a > 100)
                 {
                   score += 3;
                 }
-                else if(user.predictions[j].p_score_a == "C" && score_a <= 140 && score_a > 120)
+                else if(user.predictions[j].p_score_a != '' && user.predictions[j].p_score_a == "C" && score_a <= 140 && score_a > 120)
                 {
                   score += 3;
                 }
-                else if(user.predictions[j].p_score_a == "D" && score_a <= 160 && score_a > 140)
+                else if(user.predictions[j].p_score_a != '' && user.predictions[j].p_score_a == "D" && score_a <= 160 && score_a > 140)
                 {
                   score += 3;
                 }
-                else if(user.predictions[j].p_score_a == "E" && score_a <= 180 && score_a > 160)
+                else if(user.predictions[j].p_score_a != '' && user.predictions[j].p_score_a == "E" && score_a <= 180 && score_a > 160)
                 {
                   score += 3;
                 }
-                else if(user.predictions[j].p_score_a == "F" && score_a <= 200 && score_a > 180)
+                else if(user.predictions[j].p_score_a != '' && user.predictions[j].p_score_a == "F" && score_a <= 200 && score_a > 180)
                 {
                   score += 3;
                 }
-                else if(user.predictions[j].p_score_a == "G" && score_a <= 220 && score_a > 200)
+                else if(user.predictions[j].p_score_a != '' && user.predictions[j].p_score_a == "G" && score_a <= 220 && score_a > 200)
                 {
                   score += 3;
                 }
-                else if(user.predictions[j].p_score_a == "H" && score_a <= 240 && score_a > 220)
+                else if(user.predictions[j].p_score_a != '' && user.predictions[j].p_score_a == "H" && score_a <= 240 && score_a > 220)
                 {
                   score += 3;
                 }
-                else if(user.predictions[j].p_score_a == "I" && score_a <= 260 && score_a > 240)
+                else if(user.predictions[j].p_score_a != '' && user.predictions[j].p_score_a == "I" && score_a <= 260 && score_a > 240)
                 {
                   score += 3;
                 }
-                else if(user.predictions[j].p_score_a == "J" && score_a > 260)
+                else if(user.predictions[j].p_score_a != '' && user.predictions[j].p_score_a == "J" && score_a > 260)
                 {
                   score += 3;
                 }
 
-                if(user.predictions[j].p_score_b == "A" && score_b <= 100 && score_b > 0)
+                if(user.predictions[j].p_score_b != '' && user.predictions[j].p_score_b == "A" && score_b <= 100 && score_b > 0)
                 {
                   score += 3;
                 }
-                else if(user.predictions[j].p_score_b == "B" && score_b <= 120 && score_b > 100)
+                else if(user.predictions[j].p_score_b != '' && user.predictions[j].p_score_b == "B" && score_b <= 120 && score_b > 100)
                 {
                   score += 3;
                 }
-                else if(user.predictions[j].p_score_b == "C" && score_b <= 140 && score_b > 120)
+                else if(user.predictions[j].p_score_b != '' && user.predictions[j].p_score_b == "C" && score_b <= 140 && score_b > 120)
                 {
                   score += 3;
                 }
-                else if(user.predictions[j].p_score_b == "D" && score_b <= 160 && score_b > 140)
+                else if(user.predictions[j].p_score_b != '' && user.predictions[j].p_score_b == "D" && score_b <= 160 && score_b > 140)
                 {
                   score += 3;
                 }
-                else if(user.predictions[j].p_score_b == "E" && score_b <= 180 && score_b > 160)
+                else if(user.predictions[j].p_score_b != '' && user.predictions[j].p_score_b == "E" && score_b <= 180 && score_b > 160)
                 {
                   score += 3;
                 }
-                else if(user.predictions.p_score_b == "F" && score_b <= 200 && score_b > 180)
+                else if(user.predictions[j].p_score_b != '' && user.predictions.p_score_b == "F" && score_b <= 200 && score_b > 180)
                 {
                   score += 3;
                 }
-                else if(user.predictions[j].p_score_b == "G" && score_b <= 220 && score_b > 200)
+                else if(user.predictions[j].p_score_b != '' && user.predictions[j].p_score_b == "G" && score_b <= 220 && score_b > 200)
                 {
                   score += 3;
                 }
-                else if(user.predictions[j].p_score_b == "H" && score_b <= 240 && score_b > 220)
+                else if(user.predictions[j].p_score_b != '' && user.predictions[j].p_score_b == "H" && score_b <= 240 && score_b > 220)
                 {
                   score += 3;
                 }
-                else if(user.predictions[j].p_score_b == "I" && score_b <= 260 && score_b > 240)
+                else if(user.predictions[j].p_score_b != '' && user.predictions[j].p_score_b == "I" && score_b <= 260 && score_b > 240)
                 {
                   score += 3;
                 }
-                else if(user.predictions[j].p_score_b == "J" && score_b > 260)
+                else if(user.predictions[j].p_score_b != '' && user.predictions[j].p_score_b == "J" && score_b > 260)
                 {
                   score += 3;
                 }
