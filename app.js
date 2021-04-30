@@ -70,7 +70,7 @@ fetch("https://dev132-cricket-live-scores-v1.p.rapidapi.com/matchseries.php?seri
     console.error(err);
 });
 
-var curr_match_id = 50834;
+var curr_match_id = 50835;
 var curr_series_id = 2780;
 var time = 15*60*1000;
 
